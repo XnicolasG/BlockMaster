@@ -1,5 +1,5 @@
 
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { db } from '../firebase/firebaseConfig'
 import { Types } from '../types/types'
 
@@ -57,9 +57,9 @@ export const AsyncDelete = (nom) =>{
     return async (dispatch) =>{
         console.log(nom);
     const movieCollection = collection(db, 'peliculas');
-    const qu = query(movieCollection, where('nom', '==', nom));
+    const q = query(movieCollection, where('nom', '==', nom));
 
-    const querySnapshots = await getDocs(qu);
+    const querySnapshots = await getDocs(q);
     querySnapshots.forEach((coll)=>{
         deleteDoc(doc(db, 'peliculas', coll.id))
     .then(res=>{
@@ -73,5 +73,32 @@ export const SyncDelete = (nom) =>{
     return{
         type:Types.eliminar,
         payload: nom
+    }
+}
+// ============Actualizar ===================
+export const AsyncUpdate = (nom, data ) =>{
+    return async (dispatch) =>{
+        const movieCollection = collection(db, 'peliculas');
+        const q = query(movieCollection, where('nom', '==', nom));
+        
+        const datos = await getDocs(q);
+        let nombre 
+        datos.forEach(async(dat)=>{
+            nombre = dat.nom
+        })
+        const transfer = doc(db, 'peliculas', nombre)
+         await updateDoc(transfer, nombre)
+        .then(()=> {
+                AsyncList()
+            }
+        )
+        
+}
+}
+
+export const SyncUpdate = (data) =>{
+    return{
+        type: Types.actualizar,
+        payload: data
     }
 }

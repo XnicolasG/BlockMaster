@@ -18,6 +18,10 @@ export const MyListReducer = (state = initialState, action)=>{
             return{
                 peliculas: state.peliculas.filter(pel => pel.nom !== action.payload)
             }
+        case Types.actualizar:
+            return{
+                peliculas:[action.payload]
+            }
         default:
             return state
     }

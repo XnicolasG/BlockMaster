@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/NavBarA.css'
 import {useDispatch} from 'react-redux'
 import {LogoutAction} from '../actions/UsuariosActions'
-import { getQuery } from '../helpers/getDataCar';
 import {RiUserLocationLine} from 'react-icons/ri'
 
 

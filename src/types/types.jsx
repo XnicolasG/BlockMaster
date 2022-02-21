@@ -4,7 +4,8 @@ export const Types = {
     login:'[login]',
     logout:'[logout]',
 
-    agregar:'[agregar peliculas]',
-    listar:'[listar peliculas]',
-    eliminar:'[Eliminar pelicula]'
+    agregar:'[agregar películas]',
+    listar:'[listar películas]',
+    eliminar:'[Eliminar película]',
+    actualizar:'[Actualizar película]'
 }

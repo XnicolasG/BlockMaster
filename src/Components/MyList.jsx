@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useForm } from '../Hooks/useForm'
 import { fileUpload } from '../helpers/Upload'
 import { AsyncDelete, AsyncList, AsyncListActions } from '../actions/ListActions'
 import { Table, Button } from 'react-bootstrap'
+import ModalList from './ModalList'
 
 const MyList = () => {
 
@@ -35,12 +36,25 @@ const MyList = () => {
        reset()
    }
 
+   const [modal, setModal] = useState(false)
+   const [datosModal, setDatosModal] = useState([])
+
+   const activarModal = (nom) =>{
+    const traer = peliculas.find((get)=>(
+        get.nom === nom
+    ))
+        setModal(true)
+        setDatosModal(traer)
+        console.log(datosModal)
+
+   }
+
    useEffect(()=>{
        dispatch(AsyncList())
    }, [])
 
    const {peliculas} = useSelector(store => store.peliculasNuevas)
-   console.log(peliculas);
+   
 
 
   return (
@@ -75,8 +89,8 @@ const MyList = () => {
                             <td>{pelis.nom}</td>
                             <td>{pelis.desc}</td>
                             <td>{pelis.rank}</td>
-                            <td><Button variant="danger">Eliminar</Button></td>
-                            <td><Button onClick={()=> dispatch(AsyncDelete(pelis.nom))} >Modificar</Button></td>
+                            <td><Button variant="danger"onClick={()=> dispatch(AsyncDelete(pelis.nom))} >Eliminar</Button></td>
+                            <td><Button onClick={()=> {activarModal(pelis.nom)}} >Modificar</Button></td>
                         </tr>
                     ))
                 ) 
@@ -85,6 +99,9 @@ const MyList = () => {
             }
             </tbody>
         </Table>
+        {
+            modal === true ? <ModalList data={datosModal} /> : console.log('')
+        }
     </div>
   )
 }

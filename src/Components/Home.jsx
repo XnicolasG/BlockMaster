@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Styles/Home.css'
-import { Button, Carousel, Modal } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 
@@ -14,10 +14,7 @@ const Home = () => {
 
     const [movies, setMovies] = useState([])
 
-    const [show, setShow] = useState(false)
 
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
 
     const getDataCar = async () => {
         const resp = await fetch(url);
@@ -40,7 +37,7 @@ const Home = () => {
                     movies.map(movie => (
                         <Carousel.Item key={movie.id} className=''>
                             <center>
-                            <iframe SameSite='Lax'  width='650' height='280' src='https://www.youtube.com/embed/RLGOLdL0IZ0?start=7' title='YouTube video player' frameBorder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>                               
+                            <iframe key={movie.id} width='650' height='280' src={movie.trailer} title='YouTube video player' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' ></iframe>                               
                             </center>
                         </Carousel.Item>
                     ))
