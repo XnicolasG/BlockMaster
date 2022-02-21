@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/XnicolasG/BlockMaster/static/css/main.93e1a4b7.css",
+    "main.js": "/XnicolasG/BlockMaster/static/js/main.c152fba2.js",
+    "index.html": "/XnicolasG/BlockMaster/index.html",
+    "main.93e1a4b7.css.map": "/XnicolasG/BlockMaster/static/css/main.93e1a4b7.css.map",
+    "main.c152fba2.js.map": "/XnicolasG/BlockMaster/static/js/main.c152fba2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93e1a4b7.css",
+    "static/js/main.c152fba2.js"
+  ]
+}
