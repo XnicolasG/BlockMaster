@@ -10,7 +10,7 @@ const NavBarA = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   // ========= Ubicación usuario==========
-  let url = '';
+  
 
   const [address, setAddress] = useState('');
 
@@ -18,6 +18,7 @@ const NavBarA = () => {
     getCoordenadas();
   });
 
+    let url 
   const getCoordenadas = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
@@ -31,7 +32,7 @@ const NavBarA = () => {
   const getLocation = async (url) => {
     const resp = await fetch(url);
     const { results } = await resp.json();
-    console.log(results)
+    // console.log(results)
     setAddress(results[7].address_components[0].long_name + ',' + results[10].address_components[0].long_name);
   };
 

@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
+import { getDatos } from '../helpers/getDataCar'
+import InputSearch from './InputSerach'
 
 const WorstRanked = () => {
-    const [page, setPage] = useState(1)
-    const [pelis, setPelis] = useState([])
-    const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=${page}`
-    const imgPath = 'https://image.tmdb.org/t/p/w1280'
+    const imgPath = 'https://image.tmdb.org/t/p/original'
 
-    const getData = async () => {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        setPelis(data.results)
+    // ================== Busqueda =======================
+    const[busq, setBusq] = useState({
+        busqueda:''
+    })
+    const {busqueda} = busq
+    // const buscadorApi = `http://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query=${busqueda}`
+
+    const handleInput = ({target}) =>{
+        setBusq({
+            ...busq,
+            [target.name]: target.value
+        })
     }
+
+    // ============Paginación==============
+    
+
+    const [pelis, setPelis] = useState([])
+
+    const [page, setPage] = useState(1)
     const previousPage = () => {
         if (page === 1) {
             setPage(1)
@@ -20,6 +34,7 @@ const WorstRanked = () => {
         }
 
     }
+    // const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=${page}`
     const nextPage = () => {
         if (page === 32328) {
             setPage(32328)
@@ -27,17 +42,41 @@ const WorstRanked = () => {
             setPage(page + 1)
         }
     }
-    const scroll = ()=>{
-        window.scrollTo({top:1, behavior:'smooth'})
+    
+    const searching = busqueda.length>0
+    const Obtain = () =>{ 
+        let api = ''   
+        if(searching){
+            api =     `https://api.themoviedb.org/3/search/movie?api_key=fa031f96936e4b36067a690a2e64116c&language=en-US&query=${busqueda}&api_key=0ca79cfff3d14page=1&include_adult=false`
+
+        }else{
+            api = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=${page}`
+        }
+        getDatos(api, setPelis) 
     }
+   
+
+    // ===========Scroll por cambio de pagina ================
+    const scroll = () => {
+        window.scrollTo({ top: 1, behavior: 'smooth' })
+    }
+    
     useEffect(() => {
-        getData()
+        Obtain()
         scroll()
+        
     }, [page])
+   
+
+    useEffect(()=>{
+        Obtain()
+        
+    },[busqueda])
     return (
         <div className='Pelis'>
             <div className='ContCards'>
                 <h1 className='text-center text-white tituloSeccion'>Menos valoradas | Pag ({page})</h1>
+                <InputSearch busqueda={busqueda} handleInput={handleInput} />
 
                 {
                     pelis.filter(rank => rank.vote_average <= 6.4).sort().map(pel => (

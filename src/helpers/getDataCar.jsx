@@ -6,3 +6,9 @@ export const getQuery = async (busqueda) =>{
     const data = await resp.json();
     return data
   }
+
+  export const getDatos = async (api, setPelis) =>{
+    const resp = await fetch(api);
+    const data = await resp.json()
+    setPelis(data.results)
+  }

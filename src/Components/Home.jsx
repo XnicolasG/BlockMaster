@@ -37,7 +37,7 @@ const Home = () => {
                     movies.map(movie => (
                         <Carousel.Item key={movie.id} className=''>
                             <center>
-                            <iframe key={movie.id} width='650' height='280' src={movie.trailer} title='YouTube video player' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' ></iframe>                               
+                            <iframe width='650' height='280' src={movie.trailer} title='YouTube video player' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' ></iframe>                               
                             </center>
                         </Carousel.Item>
                     ))
