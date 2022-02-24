@@ -69,15 +69,16 @@ const Peliculas = () => {
     }
     
     useEffect(() => {
-        Obtain()
-        scroll()
-        
+        Obtain(),
+
+        scroll()  
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
    
 
     useEffect(()=>{
         Obtain()
-        
+        // eslint-disable-next-line react-hooks/exhaustive-deps   
     },[busqueda])
     return (
         <div className='Pelis'>
